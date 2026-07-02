@@ -63,7 +63,7 @@ dependencies:
   video_player: ^2.8.3
 
   # PDF
-  syncfusion_flutter_pdfviewer: ^25.1.35
+  syncfusion_flutter_pdfviewer: ^27.2.5
 
   # Charts
   fl_chart: ^0.68.0
