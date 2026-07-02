@@ -22,7 +22,13 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          # Bumped from 3.24.0: the record package's Android plugin
+          # (record_android) fails to build on Flutter 3.24.x with
+          # "Could not get unknown property 'flutter' for extension
+          # 'android'" — a known Flutter Gradle-tooling bug for that
+          # release line. Confirmed fixed on 3.29.x.
+          # (github.com/llfbandit/record/issues/531)
+          flutter-version: '3.29.3'
           channel: 'stable'
 
       # Must run BEFORE "Bootstrap Gradle wrapper jar": settings.gradle
