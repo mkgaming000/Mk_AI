@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  All 12 remote AI provider datasources in this app hardcode "https://"
+  base URLs (see lib/core/constants/api_constants.dart), so this policy
+  has no effect on them either way.
+
+  The one exception is Local Models (Ollama/LM Studio): the user types in
+  their own server address in Settings, which is typically a plain-HTTP
+  address on their local network (e.g. a desktop's LAN IP, or 10.0.2.2 for
+  the Android emulator). Android's network security config has no support
+  for CIDR/wildcard IP ranges, so there is no way to pre-declare "allow
+  cleartext for any LAN address" other than permitting it by default.
+  Cleartext is therefore allowed here; every other network call in this
+  codebase is HTTPS-only regardless of this setting.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
