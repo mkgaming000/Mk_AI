@@ -3,8 +3,6 @@ import 'package:hive/hive.dart';
 
 // TypeIds: MessageRole=20, MessageContentType=21, MessageModel=2
 
-part 'message_model.g.dart';
-
 @HiveType(typeId: 20)
 enum MessageRole {
   @HiveField(0)

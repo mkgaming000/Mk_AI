@@ -35,7 +35,7 @@ class _ChatListScreenState extends ConsumerState<ChatListScreen> {
         actions: [
           if (!_searching) IconButton(icon: const Icon(Icons.search_rounded), onPressed: () => setState(() => _searching = true)),
           if (_searching) TextButton(onPressed: () { setState(() => _searching = false); _searchCtrl.clear(); ref.read(conversationListProvider.notifier).search(''); }, child: const Text('Cancel')),
-          IconButton(icon: const Icon(Icons.edit_square_rounded), onPressed: () => context.push(RouteNames.newChat), tooltip: 'New chat'),
+          IconButton(icon: const Icon(Icons.edit_square), onPressed: () => context.push(RouteNames.newChat), tooltip: 'New chat'),
         ],
       ),
       body: state.when(
@@ -168,8 +168,7 @@ class _Empty extends StatelessWidget {
     const SizedBox(height: 20),
     Text('Start a conversation', style: Theme.of(context).textTheme.headlineSmall).animate().fadeIn(delay: 150.ms),
     const SizedBox(height: 8),
-    Text('Chat with GPT-4o, Claude, Gemini, Grok, DeepSeek
-and 8+ more AI models.',
+    Text('Chat with GPT-4o, Claude, Gemini, Grok, DeepSeek and 8+ more AI models.',
       textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
         .animate().fadeIn(delay: 250.ms),
     const SizedBox(height: 28),

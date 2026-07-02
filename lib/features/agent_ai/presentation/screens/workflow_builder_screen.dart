@@ -47,7 +47,7 @@ class _WorkflowBuilderScreenState extends ConsumerState<WorkflowBuilderScreen> {
             final color = Color(def['color'] as int);
             return Container(key: ValueKey(step.id), margin: const EdgeInsets.only(bottom: 8),
               decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceVariant, borderRadius: BorderRadius.circular(12), border: Border.all(color: color.withOpacity(0.3))),
-              child: ListTile(leading: Container(width: 36, height: 36, decoration: BoxDecoration(color: color.withOpacity(0.12), borderRadius: BorderRadius.circular(8)), child: Center(child: Text(def['label']!.split(' ').first))),
+              child: ListTile(leading: Container(width: 36, height: 36, decoration: BoxDecoration(color: color.withOpacity(0.12), borderRadius: BorderRadius.circular(8)), child: Center(child: Text((def['label'] as String).split(' ').first))),
                 title: Text(step.name), trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                   Container(width: 20, height: 20, decoration: BoxDecoration(color: color, shape: BoxShape.circle), child: Center(child: Text('${i+1}', style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w700)))),
                   IconButton(icon: const Icon(Icons.close_rounded, size: 16), onPressed: () => setState(() => _steps.removeAt(i)), padding: EdgeInsets.zero, constraints: const BoxConstraints()),

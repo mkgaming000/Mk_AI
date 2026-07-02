@@ -48,16 +48,15 @@ class UsageStatsScreen extends ConsumerWidget {
         if (byProvider.isEmpty)
           Text('No usage yet', style: Theme.of(context).textTheme.bodySmall)
         else
-          ...byProvider.entries.toList()
-            ..sort((a, b) => b.value.compareTo(a.value))
-            ..map((e) {
+          ...(byProvider.entries.toList()..sort((a, b) => b.value.compareTo(a.value)))
+            .map((e) {
               final maxCost = byProvider.values.reduce((a, b) => a > b ? a : b);
               return Padding(padding: const EdgeInsets.only(bottom: 12), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(children: [Text(e.key.capitalize, style: Theme.of(context).textTheme.bodyMedium), const Spacer(), Text(e.value.formattedCost, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600))]),
                 const SizedBox(height: 4),
                 ClipRRect(borderRadius: BorderRadius.circular(4), child: LinearProgressIndicator(value: maxCost > 0 ? e.value / maxCost : 0, minHeight: 6, backgroundColor: Theme.of(context).colorScheme.surfaceVariant, valueColor: const AlwaysStoppedAnimation(AppColors.darkPrimary))),
               ]));
-            }).toList(),
+            }),
       ]),
     );
   }
@@ -74,8 +73,4 @@ class _StatCard extends StatelessWidget {
       Text(value, style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: color)),
       const SizedBox(height: 2), Text(label, style: Theme.of(context).textTheme.bodySmall),
     ]));
-}
-
-extension _StringExt on String {
-  String get capitalize => isEmpty ? this : '${this[0].toUpperCase()}${substring(1)}';
 }

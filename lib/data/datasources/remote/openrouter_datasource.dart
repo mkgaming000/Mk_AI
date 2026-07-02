@@ -61,8 +61,8 @@ class OpenRouterDatasource {
     try {
       final client = await _client;
       final response = await client.get(ApiConstants.openRouterModelsEndpoint);
-      _cachedModels = (response.data as Map<String,dynamic>)['data'] as List<dynamic>? ?? []
-        ..whereType<Map<String,dynamic>>().map((m) => OpenRouterModel.fromJson(m)).toList();
+      final rawList = (response.data as Map<String,dynamic>)['data'] as List<dynamic>? ?? [];
+      _cachedModels = rawList.whereType<Map<String,dynamic>>().map((m) => OpenRouterModel.fromJson(m)).toList();
       return _cachedModels ?? [];
     } catch (_) { return []; }
   }
