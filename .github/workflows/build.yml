@@ -28,14 +28,22 @@ jobs:
       # This repo's gradle-wrapper.jar could not be generated in the
       # environment that produced it (no network access, no local Gradle
       # install available). gradle-wrapper.properties is present and
-      # correct, so `gradle wrapper` regenerates the jar from the real
-      # Gradle distribution here, where network access is available.
+      # correct, so `gradle wrapper` regenerates the jar here.
+      #
+      # NOTE: we deliberately do NOT use `apt-get install gradle` — Ubuntu's
+      # apt repo ships a very old Gradle (4.4.1) that cannot parse the
+      # `plugins {}` block used in settings.gradle (requires Gradle 6.4+),
+      # which caused this step to fail with "startup failed: Only Project
+      # build scripts can contain plugins {} blocks". Instead we download
+      # the exact Gradle version declared in gradle-wrapper.properties
+      # directly from the official distribution.
       - name: Bootstrap Gradle wrapper jar
         run: |
           if [ ! -f android/gradle/wrapper/gradle-wrapper.jar ]; then
-            echo "gradle-wrapper.jar missing — regenerating via system Gradle"
-            sudo apt-get update -qq && sudo apt-get install -y -qq gradle
-            cd android && gradle wrapper --gradle-version 8.7 && cd ..
+            echo "gradle-wrapper.jar missing — regenerating via official Gradle 8.7 distribution"
+            curl -sSL -o /tmp/gradle-8.7-bin.zip https://services.gradle.org/distributions/gradle-8.7-bin.zip
+            unzip -q -d /tmp /tmp/gradle-8.7-bin.zip
+            cd android && /tmp/gradle-8.7/bin/gradle wrapper --gradle-version 8.7 --distribution-type all && cd ..
           fi
 
       - name: Create local.properties
